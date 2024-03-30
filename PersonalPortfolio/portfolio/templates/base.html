@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}"/>
+    <link rel="stylesheet" href="{% static 'styles_home.css' %}">
+</head>
+<body>
+    <header>
+        <h1>My personal portfolio</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}" target="_self">Home</a></li>
+                <li><a href="{% url 'portfolio' %}" target="_self">Portfolio</a></li>
+                <li><a href="{% url 'about' %}" target="_self">About me</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    {% block content %}{% endblock %}
+    
+    <footer class="footer">
+        <p>&copy; 2024 My portfolio. All rights reserved.</p>
+        <script src="{% static 'main.js' %}"></script>
+    </footer>
+</body>
+</html>

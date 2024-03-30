@@ -1,0 +1,27 @@
+<!-- 
+Name: Harshitha Saripalli  
+UCID: hs759
+Date of submission: 30-03-2024
+-->
+
+
+{% extends "base.html" %} {% block content %}
+<center> 
+  <h1>Welcome to my personal portfolio!</h1>
+  <h2>{{name}}</h2>
+  {% load static %}
+  <img src="{% static 'images.jpg' %}" width="150" height="150 alt="Description of the image">
+
+  <p>{{email}}</p>
+  <p>GitHub: <a href="{{ github }}">https://github.com/HARSHITHASARIPALLI</a></p>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+</center>
+{% endblock %}
