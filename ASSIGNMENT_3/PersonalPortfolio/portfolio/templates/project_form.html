@@ -1,0 +1,19 @@
+<!-- 
+Name: Harshitha Saripalli
+UCID: hs759
+Date of submission: 30-03-2024
+-->
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+<center> 
+  <h2>Add a new project</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+  </form>
+</center>
+{% endblock %}
