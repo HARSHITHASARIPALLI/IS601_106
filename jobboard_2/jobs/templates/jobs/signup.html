@@ -1,0 +1,38 @@
+{% extends 'jobs/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card" style="background-color: white;">
+                <div class="card-body">
+                    <h5 class="card-title text-center"  style="color: black;">Signup</h5> <!-- Center the title -->
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="form-group">
+                            <!-- Use a label with black text -->
+                            <label for="{{ field.id_for_label }}" style="color: black;">{{ field.label }}</label>
+                            <!-- Add custom class for styling the input -->
+                            {% if field.name == 'password1' or field.name == 'password2' %}
+                            <input class="form-control rounded-input" type="password" name="{{ field.name }}" id="{{ field.id_for_label }}" />
+                            {% else %}
+                            <input class="form-control rounded-input" type="text" name="{{ field.name }}" id="{{ field.id_for_label }}" />
+                            {% endif %}                        </div>
+                        {% endfor %}
+                        <button type="submit" class="btn" style="background-color: #E9AE36; color: white; width: 100%;">Signup</button>
+                    </form>
+                </div>
+            </div>
+            <p class="text-center mt-3">If you already have an account, <a href="{% url 'login' %}">login here</a>.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Additional styles -->
+<style>
+    .rounded-input {
+        border-radius: 15px; /* Curve the input fields */
+    }
+</style>
+{% endblock %}

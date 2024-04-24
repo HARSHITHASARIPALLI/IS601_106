@@ -1,0 +1,37 @@
+{% extends 'jobs/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Apply for Job</h2>
+    <form method="post" enctype="multipart/form-data" class="mt-3">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}" style="color: white;">{{ field.label }}</label>
+            {% if field.name == 'cover_letter' %}
+                <!-- Render the cover letter field as a larger textarea -->
+                <textarea class="form-control rounded-input" name="{{ field.name }}" id="{{ field.id_for_label }}" rows="6">{{ field.value }}</textarea>
+            {% elif field.field.widget.input_type == 'file' %}
+                <!-- Render the resume field to accept files -->
+                <input class="form-control rounded-input" type="file" name="{{ field.name }}" id="{{ field.id_for_label }}" accept=".pdf, .doc, .docx">
+            {% else %}
+                <!-- Render other fields based on their type -->
+                <input class="form-control rounded-input" type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}">
+            {% endif %}
+        </div>
+        {% endfor %}
+        <div class="text-center mt-3">
+            <button type="submit" class="btn" style="background-color: #E9AE36; color: white;">Submit Application</button>
+        </div>
+    </form>
+</div>
+
+<style>
+    .rounded-input, .form-control, textarea, select {
+        border-radius: 20px; /* Ensures consistency in rounded corners */
+    }
+    .form-group label {
+        color: black; /* Ensures label text is black for better visibility */
+    }
+</style>
+{% endblock %}

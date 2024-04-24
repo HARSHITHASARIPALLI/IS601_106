@@ -1,0 +1,39 @@
+{% extends 'jobs/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card" style="background-color: white;">
+                <div class="card-body">
+                    <h5 class="card-title text-center" style="color: black;">Post Job</h5>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}" style="color: black;">{{ field.label }}</label>
+                            {% if field.field.widget.input_type == 'select' %}
+                                {{ field }}
+                            {% elif field.field.widget.input_type == 'file' %}
+                                <input class="form-control rounded-input" type="file" name="{{ field.name }}" id="{{ field.id_for_label }}" {{ field.field.widget.attrs|default_if_none:'' }}>
+                            {% elif field.name == 'job_description' %}
+                                <textarea class="form-control rounded-input" name="{{ field.name }}" id="{{ field.id_for_label }}" rows="6">{{ field.value|default_if_none:'' }}</textarea>
+                            {% else %}
+                                <input class="form-control rounded-input" type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:'' }}" {{ field.field.widget.attrs|default_if_none:'' }}>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                        <button type="submit" class="btn" style="background-color: #E9AE36; color: white; width: 100%;">Post Job</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .rounded-input, .form-control, textarea, select {
+        border-radius: 20px; 
+    }
+</style>
+{% endblock %}
