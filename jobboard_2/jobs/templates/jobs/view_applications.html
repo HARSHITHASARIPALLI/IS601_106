@@ -1,0 +1,48 @@
+{% extends 'jobs/base.html' %}
+
+{% block content %}
+<style>
+    h5, p, a, label, .btn-info, .btn-primary {
+        color: #333 !important; /* Sets text to dark gray, adjust color as needed */
+    }
+    /* If your form controls are also inheriting the white color, adjust them like so: */
+    .form-control, .form-control:focus {
+        color: #333 !important; /* Sets input text color to dark gray */
+        background-color: #fff !important; /* Ensure background is white for contrast */
+        border-color: #ced4da !important; /* Default Bootstrap border color */
+    }
+    /* Style for links to ensure they stand out */
+    a, a:hover, a:focus, button:hover {
+        color: white !important; /* Bootstrap default link color */
+    }
+</style>
+<div class="container mt-5">
+    <h2 class="text-center">Applications for "{{ job.job_title }}"</h2>
+    {% for application in applications %}
+    <div class="card mb-3" style="border-radius: 20px;">
+        <div class="card-body">
+            <h5 class="card-title">{{ application.full_name }}</h5>
+            <p><strong>Email:</strong> {{ application.email }}</p>
+            <p><strong>Phone Number:</strong> {{ application.phone_number }}</p>
+            <p><strong>Cover Letter:</strong> {{ application.cover_letter|linebreaksbr }}</p>
+            <p><strong>Applied On:</strong> {{ application.applied_on|date:"N j, Y" }}</p>
+            <p><strong>Status:</strong> {{ application.get_status_display }}</p>
+            <a href="{{ application.resume.url }}" class="btn btn-info" target="_blank">View Resume</a>
+            
+            <form action="{% url 'update_application_status' application.id %}" method="post" class="mt-3">
+                {% csrf_token %}
+                <label for="status">Update Status:</label>
+                <select name="status" class="form-control">
+                    {% for status, status_display in status_choices %}
+                    <option value="{{ status }}" {% if status == application.status %}selected{% endif %}>{{ status_display }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-primary mt-2">Update</button>
+            </form>
+        </div>
+    </div>
+    {% empty %}
+    <p>No applications yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

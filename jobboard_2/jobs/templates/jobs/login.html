@@ -1,0 +1,32 @@
+{% extends 'jobs/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card" style="background-color: white;">
+                <div class="card-body">
+                    <h5 class="card-title text-center" style="color: black;">Login</h5>
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}" style="color: black;">{{ field.label }}</label>
+                            <input class="form-control rounded-input" type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:'' }}">
+                        </div>
+                        {% endfor %}
+                        <button type="submit" class="btn" style="background-color: #E9AE36; color: white; width: 100%;">Login</button>
+                    </form>
+                </div>
+            </div>
+            <p class="text-center mt-3">Don't have an account? <a href="{% url 'signup' %}">Sign up</a>.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .rounded-input {
+        border-radius: 15px; /* Curve the input fields */
+    }
+</style>
+{% endblock %}
