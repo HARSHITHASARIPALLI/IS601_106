@@ -1,3 +1,6 @@
+# Name:Harshitha Saripalli
+#UCID :hs759
+#Date of Submission: 24-04-2024
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
 from .forms import CustomUserCreationForm, JobForm
